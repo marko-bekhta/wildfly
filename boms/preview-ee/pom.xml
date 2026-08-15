@@ -40,6 +40,13 @@
         <preview.version.jakarta.persistence>4.0.0-M6</preview.version.jakarta.persistence>
         <preview.version.org.hibernate.models>1.2.0</preview.version.org.hibernate.models>
         <preview.version.org.hibernate.search>9.0.0-SNAPSHOT</preview.version.org.hibernate.search>
+        <!--
+            WildFly Preview tracks Weld 7 (ahead of the standard/legacy Weld 6), which adds the
+            JpaInjectionServices EntityAgent SPI used for Jakarta Persistence 4 @PersistenceAgent injection.
+            weld-api/weld-spi use the 7.0.BetaN scheme; weld-core and the weld modules use 7.0.0.BetaN.
+        -->
+        <preview.version.org.jboss.weld.weld>7.0.0.Beta2</preview.version.org.jboss.weld.weld>
+        <preview.version.org.jboss.weld.weld-api>7.0.Beta2</preview.version.org.jboss.weld.weld-api>
     </properties>
 
     <dependencyManagement>
@@ -292,6 +299,99 @@
                 <artifactId>hibernate-search-v5migrationhelper-orm</artifactId>
                 <version>${preview.version.org.hibernate.search}</version>
                 <scope>test</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>*</groupId>
+                        <artifactId>*</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <!--
+                Weld 7 overrides for WildFly Preview (ahead of the Weld 6 inherited from
+                wildfly-standard-preview-ee-bom). Declared before the import below so they take precedence.
+             -->
+            <dependency>
+                <groupId>org.jboss.weld</groupId>
+                <artifactId>weld-api</artifactId>
+                <version>${preview.version.org.jboss.weld.weld-api}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>*</groupId>
+                        <artifactId>*</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.weld</groupId>
+                <artifactId>weld-spi</artifactId>
+                <version>${preview.version.org.jboss.weld.weld-api}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>*</groupId>
+                        <artifactId>*</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.weld</groupId>
+                <artifactId>weld-core-impl</artifactId>
+                <version>${preview.version.org.jboss.weld.weld}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>*</groupId>
+                        <artifactId>*</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.weld</groupId>
+                <artifactId>weld-lite-extension-translator</artifactId>
+                <version>${preview.version.org.jboss.weld.weld}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>*</groupId>
+                        <artifactId>*</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.weld.module</groupId>
+                <artifactId>weld-ejb</artifactId>
+                <version>${preview.version.org.jboss.weld.weld}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>*</groupId>
+                        <artifactId>*</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.weld.module</groupId>
+                <artifactId>weld-jsf</artifactId>
+                <version>${preview.version.org.jboss.weld.weld}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>*</groupId>
+                        <artifactId>*</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.weld.module</groupId>
+                <artifactId>weld-jta</artifactId>
+                <version>${preview.version.org.jboss.weld.weld}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>*</groupId>
+                        <artifactId>*</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.weld.module</groupId>
+                <artifactId>weld-web</artifactId>
+                <version>${preview.version.org.jboss.weld.weld}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>*</groupId>
