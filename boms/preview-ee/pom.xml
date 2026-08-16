@@ -47,6 +47,11 @@
         -->
         <preview.version.org.jboss.weld.weld>7.0.0.Beta2</preview.version.org.jboss.weld.weld>
         <preview.version.org.jboss.weld.weld-api>7.0.Beta2</preview.version.org.jboss.weld.weld-api>
+        <!--
+            Weld 7 requires CDI 5.0, whose API artifact moved from jakarta.enterprise:jakarta.enterprise.cdi-api
+            to jakarta.cdi:jakarta.cdi-api (Java packages unchanged, jakarta.enterprise.*). WildFly Preview tracks it.
+        -->
+        <preview.version.jakarta.cdi>5.0.0.Beta1</preview.version.jakarta.cdi>
     </properties>
 
     <dependencyManagement>
@@ -392,6 +397,44 @@
                 <groupId>org.jboss.weld.module</groupId>
                 <artifactId>weld-web</artifactId>
                 <version>${preview.version.org.jboss.weld.weld}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>*</groupId>
+                        <artifactId>*</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <!--
+                CDI 5.0 for WildFly Preview (required by Weld 7). New groupId jakarta.cdi (the API classes stay
+                in the jakarta.enterprise.* packages). Declared before the import below so they take precedence.
+             -->
+            <dependency>
+                <groupId>jakarta.cdi</groupId>
+                <artifactId>jakarta.cdi-api</artifactId>
+                <version>${preview.version.jakarta.cdi}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>*</groupId>
+                        <artifactId>*</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>jakarta.cdi</groupId>
+                <artifactId>jakarta.cdi-el-api</artifactId>
+                <version>${preview.version.jakarta.cdi}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>*</groupId>
+                        <artifactId>*</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>jakarta.cdi</groupId>
+                <artifactId>jakarta.cdi-lang-model-api</artifactId>
+                <version>${preview.version.jakarta.cdi}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>*</groupId>

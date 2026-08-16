@@ -60,6 +60,23 @@
             <artifactId>wildfly-jpa-preview</artifactId>
         </dependency>
 
+        <!--
+            CDI 5.0 API (required by Weld 7). The preview jakarta.enterprise.api module.xml override bundles
+            these jakarta.cdi artifacts in place of the CDI 4.1 jakarta.enterprise.* API.
+        -->
+        <dependency>
+            <groupId>jakarta.cdi</groupId>
+            <artifactId>jakarta.cdi-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.cdi</groupId>
+            <artifactId>jakarta.cdi-el-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.cdi</groupId>
+            <artifactId>jakarta.cdi-lang-model-api</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.wildfly.deployment</groupId>
             <artifactId>wildfly-ee-9-deployment-transformer</artifactId>
